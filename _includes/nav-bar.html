@@ -9,12 +9,29 @@
     <span class="menu-icon">
       {% include svg/menu-icon-minima.svg %}
     </span>
-  </label>
+</label>
   <div class="trigger">
-    {% assign pages = site.pages | sort: "weight"  %}     
-    {% for pg in pages %}{% if pg.title %}{% unless pg.hide %}
-    <a class="page-link" href="{{ pg.url | relative_url }}">{{ pg.title }}</a>{% endunless %}{% endif %}
-    {% endfor %}
+  <ul id="leftnavlist">
+    <li><a id="home" class="page-link" href="./index.html">Home</a></li>
+    {% assign pages = site.pages | sort:"weight"  %}     
+    {% for pg in pages %}{% include listmenupg.html id=true prefix="<li>" postfix="</li>"%}{% endfor %}
+    {% if site.data.conference.submission.show %}
+    {% if site.data.conference.submission.url %}<li><a class="page-link" href="{{ site.data.conference.submission.url }}" target="_blank">Submission Site</a></li>{% endif %}{% endif %}
+    {% if site.data.conference.proceedings.show %}
+    {% if site.data.conference.proceedings.url %}<li><a class="page-link" href="{{ site.data.conference.proceedings.url }}" target="_blank">Proceedings</a></li>{% endif %}{% endif %}
+{% if site.data.conference.registration.show %}
+    {% if site.data.conference.registration.url %}<li><a class="page-link" href="{{ site.data.conference.registration.url }}" target="_blank">Registration and Logistics</a></li>{% endif %}{% endif %}
+    {% if site.data.conference.sponsors.show %}
+    {% if site.data.conference.sponsors.url %}<li><a class="page-link" href="{{ site.data.conference.sponsors.url }}" target="_blank">Sponsors</a></li>{% endif %}{% endif %}
+    <li><a class="page-link" href="{{ 'other.html' | remote_url }}">Past Meetings</a></li>
+  </ul>
   </div>
 </nav>
-{%- endif -%}
+  {% if page.title %}
+  {% assign id = page.title | downcase | replace:' ','-' | replace:',','' | replace: '/','' %}
+  <script type="text/javascript">
+  document.getElementById('{{ id }}').id='leftcurrent';
+</script>
+{% endif %}
+
+{% endif %}
