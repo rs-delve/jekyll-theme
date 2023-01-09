@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<h1>{{ site.data.conference.name }} {{ site.data.conference.year }}</h1>
+
+<table border="0" cellpadding="2" cellspacing="0">
+  {% for deadline in site.data.conference.deadlines %}
+  {% include listdeadline.html %}
+  {% endfor %}
+  <tr><td>Conference start</td><td>{{ site.data.conference.dates[0] | date: "%A, %-d %B  %Y" }}</td></tr>
+</table>
+
+<ul>
+  <li>All deadlines are strict. </li>
+  <li>All dates and times are <B>UTC</B>. Please be careful to account for summer time differences.</li>
+  <li>For more locations, please refer to <a onclick="window.open(this.href); return false;" href="http://www.timeanddate.com/worldclock/converter.html">time zone converter</a>.</li>
+  </li>
+</ul>
+
