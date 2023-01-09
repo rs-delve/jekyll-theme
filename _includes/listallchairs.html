@@ -1,6 +1,6 @@
 {% if include.header %}{% assign header=include.header %}{% else %}{% assign header='h3' %}{% endif %}
-{%- if site.conference.chairs -%}
-{%- for chair in site.conference.chairs -%}
+{%- if site.data.conference.chairs -%}
+{%- for chair in site.data.conference.chairs -%}
   {%- include listchairs.html header=header -%}
 {%- endfor -%}
 {%- endif -%}

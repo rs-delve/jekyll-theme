@@ -1,64 +1,19 @@
----
-layout: default
----
-
-{% include layout.html include="home.html" %}
-{% if default_include %}
-<div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
-
-  {{ content }}
-
-
-  {% if site.paginate %}
-    {% assign posts = paginator.posts %}
-  {% else %}
-    {% assign posts = site.posts %}
-  {% endif %}
-
-
-  {%- if posts.size > 0 -%}
-    {%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%}
-    <ul class="post-list">
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      {%- for post in posts -%}
-      <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-
-    {% if site.paginate %}
-      <div class="pager">
-        <ul class="pagination">
-        {%- if paginator.previous_page %}
-          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-          <li><div class="current-page">{{ paginator.page }}</div></li>
-        {%- if paginator.next_page %}
-          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-        </ul>
-      </div>
-    {%- endif %}
-
-  {%- endif -%}
-
-</div>
+<h1>The {{ site.data.conference.instance }} {{ site.data.conference.styling }} <br> {{site.data.conference.full_name }}</h1>
+{% if site.ghub.edit %}
+{% capture url %}https://github.com/{{ site.github_username }}/{% if site.ghub.repository %}{{ site.ghub.repository }}{% else %}{{ site.baseurl }}{% endif %}/edit/{% if site.ghub.repository contains 'github.io' %}master{% else %}gh-pages{% endif %}/_config.yml{% endcapture %}
+<p align="right">[<a href="{{ url }}" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', '{{ url }}', 13);">edit</a>]</p>
 {% endif %}
+
+{%if site.data.conference.proceedings.show %}<p>The <a href="{{ site.data.conference.proceedings.url }}">Proceedings of {{ site.data.conference.short_name }} {{ site.data.conference.year }}</a> are now available.</p>{% endif %}
+
+<h3>{{ site.data.conference.dates[0] | date: "%B %-d"}} - {{ site.data.conference.dates.last | date: "%-d, %Y" }}<br>
+    {{ site.data.conference.location }}</h3>
+
+{%if site.data.conference.image %}<center><img src="{{ site.baseurl }}/assets/images/{{ site.data.conference.image }}" alt="Conference image" width="60%"></center>{% endif %}
+
+{% include conference_description.html %}
+
+<p>Since its inception in 1985, AISTATS has been an interdisciplinary gathering of researchers at the intersection of artificial intelligence, machine learning, statistics, and related areas.</p>
+
+
+{{ content }}
